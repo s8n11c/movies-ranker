@@ -11,7 +11,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PersonIcon from '@material-ui/icons/Person';
 import Lock from '@material-ui/icons/Lock';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import { mainListItems, secondaryListItems } from './ListItems';
+import DrawerList from '../containers/drawerList';
 import TopBar from './TopBar';
 import styles from './Styles'
 import Body from './Body';
@@ -77,9 +77,7 @@ class Dashboard extends React.Component {
             </IconButton>
           </div>
           <Divider />
-          <List>{mainListItems}</List>
-          <Divider />
-          <List>{secondaryListItems(this.props)}</List>
+          <DrawerList display={this.state.open}/>
         </Drawer>
         <main className={classes.content}>
         <div className={classes.appBarSpacer} />
