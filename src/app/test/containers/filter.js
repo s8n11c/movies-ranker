@@ -1,12 +1,16 @@
 import { connect } from 'react-redux';
 import Filter from '../components/filter';
-import { grapMoviesDataFromDb } from '../actions/MoviesGrapper';
+import { grapMoviesDataFromDb ,adult_state ,year_state} from '../actions/MoviesGrapper';
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps=(state)=>{ return {loading: state.loginReducer.loading , moviesList: state.mainReducer.movies_list_buffer}; }
+const mapStateToProps=(state)=>{ return {loading: state.loginReducer.loading , 
+	moviesList: state.mainReducer.movies_list_buffer,
+	filterParams: state.mainReducer.filter
+}; }
 const mapDispatchToProps = (dispatch) => {
   return{
-    grapMoviesDataFromDb: ()=> dispatch( grapMoviesDataFromDb() )
+    adultState: (approve)=> dispatch(adult_state(approve)),
+    yearState: (year)=> dispatch(year_state(year))// more goes on here 
   }
 }
 

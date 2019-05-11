@@ -1,6 +1,6 @@
 import {TEST_ACTION} from '../actions';
 import {Rainbow} from '../../assets/multiCss';
-const InitialState={welcome: "Home", movies_list_buffer: undefined};
+const InitialState={welcome: "Home", movies_list_buffer: undefined , filter: undefined};
 
 const mainReducer = (state=InitialState, action) => {
 
@@ -46,6 +46,14 @@ const mainReducer = (state=InitialState, action) => {
       case "DISC_ERROR":
 
       return {...state , error: "something happened wrong while grapping the data"}
+
+      case "ADULT_STATE":
+
+        return {...state,filter: {...state.filter,adult: action.state}}
+
+      
+      case "YEAR_STATE":
+        return {...state, filter: {...state.filter,year: action.year}}  
     default:
       return state
   }

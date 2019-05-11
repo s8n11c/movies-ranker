@@ -3,7 +3,10 @@ import Discoverer from '../components/Discoverer';
 import { grapMoviesDataFromDb } from '../actions/MoviesGrapper';
 import { withRouter } from 'react-router-dom';
 
-const mapStateToProps=(state)=>{ return {loading: state.loginReducer.loading , moviesList: state.mainReducer.movies_list_buffer}; }
+const mapStateToProps=(state)=>{ return {loading: state.loginReducer.loading , 
+
+	moviesList: state.mainReducer.movies_list_buffer,
+	filerParams: state.mainReducer.filer  }; }
 const mapDispatchToProps = (dispatch) => {
   return{
     grapMoviesDataFromDb: ()=> dispatch( grapMoviesDataFromDb() )

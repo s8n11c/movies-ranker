@@ -10,11 +10,20 @@ import axios from 'axios';
 import {loading,not_loading} from '../../login/actions';
 import {BuildQuery} from '../Helpers/MoviesApiQueryBuilder';
 import {MoviesListRef} from '../../assets/configs/firebase';
-export const grapMoviesDataFromDb=(dispatch)=>{
 
-  return ((dispatch)=>{
+
+export const filter_params=(parent)=>{
+ 
+  return ({adult: parent&&parent.adult?parent.adult: false,year: parent&&parent.year?parent.year:"2019" })
+}
+
+export const grapMoviesDataFromDb=(dispatch)=>{
+  return ((dispatch,getState)=>{
       dispatch(loading())
-    axios.get(BuildQuery())
+
+      //filter params 
+      let params=filter_params(getState().mainReducer.filter)
+    axios.get(BuildQuery(params.adult,params.year))
      .then(res => {
         dispatch({type: "DISC_GATHERED",data: res.data.results})
         dispatch(not_loading())
@@ -123,5 +132,22 @@ export const DeleteMovie=(id)=>{
 
 
     dispatch(not_loading());
+  })
+}
+
+
+//filter handlers 
+
+export const  adult_state=(state)=>{
+  return ((dispatch)=>{
+        dispatch({type: "ADULT_STATE", state: state})
+        dispatch(grapMoviesDataFromDb())
+  })
+}
+
+export const  year_state=(year)=>{
+  return ((dispatch)=>{
+        dispatch({type: "YEAR_STATE", year: year})
+        dispatch(grapMoviesDataFromDb())
   })
 }

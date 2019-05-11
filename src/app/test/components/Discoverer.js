@@ -31,13 +31,14 @@ const styles = theme => ({
 class Discoverer extends React.Component {
 
   componentDidMount(){
-       this.props.grapMoviesDataFromDb()
+       this.props.filterParams?this.props.grapMoviesDataFromDb(this.props.filterParams.adult,this.props.filterParams.year):this.props.grapMoviesDataFromDb()
   }
 
   render() {
 
       const { classes } = this.props;
       const { moviesList } = this.props;
+      
 
     return (
       <div className={classes.root}>
